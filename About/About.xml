@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Time-of-Day Switches</name>
+	<author>Shaun McFall</author>
+	<url></url>
+	<targetVersion>0.18.0</targetVersion>
+	<description>
+    Adds power switches that can be activated or deactivated according to the current in-game time.\n\n*Power switches must be researched before they are unlocked.
+  </description>
+</ModMetaData>
