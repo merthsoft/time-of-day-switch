@@ -12,6 +12,8 @@
     <prerequisites>
       <li>MicroelectronicsBasics</li>
     </prerequisites>
+    <researchViewX>9</researchViewX>
+    <researchViewY>5</researchViewY>
   </ResearchProjectDef>
 
 </Defs>

@@ -14,7 +14,7 @@ namespace TimerSwitches {
         public static Texture2D OffColor => TimeAssignmentDefOf.Anything.ColorTexture;
         public static Texture2D OnColor => TimeAssignmentDefOf.Sleep.ColorTexture;
 
-        protected List<bool> states;
+        protected List<bool> states = Enumerable.Repeat(true, HOURS_IN_DAY).ToList();
         protected bool isTurnedOn = true;
         protected bool previousState = false;
 
@@ -22,9 +22,7 @@ namespace TimerSwitches {
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad) {
             base.SpawnSetup(map, respawningAfterLoad);
-
-            states = Enumerable.Repeat(true, HOURS_IN_DAY).ToList();
-
+            
             LongEventHandler.ExecuteWhenFinished(() => icon = ContentFinder<Texture2D>.Get("UI/Commands/SetTime", true));
         }
 
@@ -74,9 +72,11 @@ namespace TimerSwitches {
 
         public override void ExposeData() {
             base.ExposeData();
-
+            Log.Message("Expose data.");
             Scribe_Collections.Look<bool>(ref states, "timeOfDaySwitch");
             Scribe_Values.Look<bool>(ref isTurnedOn, "isTurnedOn");
+
+            Log.Message(string.Join(",", states.Select(b => b.ToString()).ToArray()));
 
             previousState = !TransmitsPowerNow;
         }
