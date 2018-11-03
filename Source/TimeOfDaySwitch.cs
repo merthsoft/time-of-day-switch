@@ -13,8 +13,8 @@ namespace TimerSwitches {
 
         public static Texture2D OffColor => TimeAssignmentDefOf.Anything.ColorTexture;
         public static Texture2D OnColor => TimeAssignmentDefOf.Sleep.ColorTexture;
-        
-        protected List<bool> states = new List<bool>();
+
+        protected List<bool> states;
         protected bool isTurnedOn = true;
         protected bool previousState = false;
 
@@ -23,9 +23,7 @@ namespace TimerSwitches {
         public override void SpawnSetup(Map map, bool respawningAfterLoad) {
             base.SpawnSetup(map, respawningAfterLoad);
 
-            for (int i = 0; i < HOURS_IN_DAY; i++) {
-                states.Add(true);
-            }
+            states = Enumerable.Repeat(true, HOURS_IN_DAY).ToList();
 
             LongEventHandler.ExecuteWhenFinished(() => icon = ContentFinder<Texture2D>.Get("UI/Commands/SetTime", true));
         }
@@ -44,7 +42,6 @@ namespace TimerSwitches {
                 yield return baseGizmos[i];
             }
             
-
             yield return new Command_Action() {
                 defaultLabel = "Set Times",
                 defaultDesc = "Set the times that this switch is on or off.",
@@ -68,11 +65,9 @@ namespace TimerSwitches {
         }
 
         private void updatePower() {
-            var hourOfDay = GenLocalDate.HourOfDay(this);
-            var state = GetState(hourOfDay);
-
             if (previousState != TransmitsPowerNow) {
-                Map.powerNetManager.Notfiy_TransmitterTransmitsPowerNowChanged(base.PowerComp);
+                Log.Message("Updating power state changed.", true);
+                Map.powerNetManager.Notfiy_TransmitterTransmitsPowerNowChanged(PowerComp);
                 previousState = TransmitsPowerNow;
             }
         }

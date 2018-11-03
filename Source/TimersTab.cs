@@ -61,7 +61,7 @@ namespace TimerSwitches {
             GUI.DrawTexture(rect, state ? TimeOfDaySwitch.OnColor : TimeOfDaySwitch.OffColor);
             if (Widgets.ButtonInvisible(rect, false)) {
                 currentState = state;
-                SoundDefOf.TickHigh.PlayOneShotOnCamera();
+                SoundDefOf.Tick_High.PlayOneShotOnCamera();
             }
 
             GUI.color = Color.white;
@@ -112,7 +112,7 @@ namespace TimerSwitches {
             if (Mouse.IsOver(rect)) {
                 Widgets.DrawBox(rect, 2);
                 if (state != this.currentState && Input.GetMouseButton(0)) {
-                    SoundDefOf.DesignateDragStandardChanged.PlayOneShotOnCamera();
+                    SoundDefOf.Designate_DragStandard_Changed.PlayOneShotOnCamera();
                     CurrentTimer.SetState(hour, this.currentState);
                 }
             }
