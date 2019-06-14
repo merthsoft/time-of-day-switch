@@ -8,13 +8,12 @@ using Verse;
 namespace TimerSwitches {
     [StaticConstructorOnStartup]
     public class TimeOfDaySwitch : Building_PowerSwitch {
-        public const int HOURS_IN_DAY = GenDate.HoursPerDay;
         private static Texture2D icon;
 
         public static Texture2D OffColor => TimeAssignmentDefOf.Anything.ColorTexture;
         public static Texture2D OnColor => TimeAssignmentDefOf.Sleep.ColorTexture;
 
-        protected List<bool> states = Enumerable.Repeat(true, HOURS_IN_DAY).ToList();
+        protected List<bool> states = Enumerable.Repeat(true, GenDate.HoursPerDay).ToList();
         protected bool isTurnedOn = true;
         protected bool previousState = false;
 
