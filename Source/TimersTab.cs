@@ -10,6 +10,7 @@ using Verse.Sound;
 namespace TimerSwitches {
     class TimersTab : MainTabWindow {
         private static float hourWidth = 20.833334f;
+        private static float hourHeight = 30f;
         private bool currentState = false;
 
         public TimeOfDaySwitch CurrentTimer { get; set; }
@@ -21,17 +22,18 @@ namespace TimerSwitches {
         }
 
         public override void DoWindowContents(Rect fillRect) {
+            base.DoWindowContents(fillRect);
+
             GUI.BeginGroup(fillRect);
 
-            base.DoWindowContents(fillRect);
             Rect position = new Rect(0f, 0f, fillRect.width, 65f);
             GUI.BeginGroup(position);
             Rect rect = new Rect(0f, 0f, 191f, position.height);
-            this.drawTimeAssignmentSelectorGrid(rect);
+            drawTimeAssignmentSelectorGrid(rect);
             float num = 0f;
             Text.Font = GameFont.Tiny;
             Text.Anchor = TextAnchor.LowerLeft;
-            for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < GenDate.HoursPerDay; i++) {
                 Rect rect2 = new Rect(num + 4f, 0f, hourWidth, position.height + 3f);
                 Widgets.Label(rect2, i.ToString());
                 num += hourWidth;
@@ -43,6 +45,11 @@ namespace TimerSwitches {
             GUI.color = Color.white;
             Rect rect5 = new Rect(0f, position.height, fillRect.width, fillRect.height - position.height);
             drawTimerRow(rect5);
+
+            var pasteRect = new Rect(4, position.height + hourHeight + 4, CopyPasteUI.CopyPasteColumnWidth, CopyPasteUI.CopyPasteIconHeight);
+            var pasteAction = ClipBoard.CanPaste ? (() => CurrentTimer.Paste()) : (Action)null;
+            CopyPasteUI.DoCopyPasteButtons(pasteRect, () => CurrentTimer.Copy(), pasteAction);
+
             GUI.EndGroup();
         }
 
@@ -82,23 +89,11 @@ namespace TimerSwitches {
 
         private void drawTimerRow(Rect rect) {
             GUI.BeginGroup(rect);
-            //Action pasteAction = null;
-            //if (this.clipboard != null) {
-            //    pasteAction = delegate
-            //    {
-            //        this.PasteTo(p);
-            //    };
-            //}
-
-            //CopyPasteUI.DoCopyPasteButtons(rect2, delegate
-            //{
-            //    this.CopyFrom(p);
-            //}, pasteAction);
             float num = 0f;
 
-            for (int i = 0; i < TimeOfDaySwitch.HOURS_IN_DAY; i++) {
-                Rect rect3 = new Rect(num, 0f, hourWidth, 30f);
-                this.DoTimeAssignment(rect3, i);
+            for (int i = 0; i < GenDate.HoursPerDay; i++) {
+                Rect rect3 = new Rect(num, 0f, hourWidth, hourHeight);
+                DoTimeAssignment(rect3, i);
                 num += hourWidth;
             }
             GUI.EndGroup();

@@ -3,7 +3,9 @@
 	<name>Time-of-Day Switches - dev</name>
 	<author>Shaun McFall</author>
 	<url>https://bitbucket.org/merthsoft/timeofdayswitch/</url>
-	<targetVersion>1.0.0</targetVersion>
+	<supportedVersions>
+    <li>1.0</li>
+  </supportedVersions>
 	<description>
     Adds power switches that can be activated or deactivated according to the current in-game time.\n\n*Power switches must be researched before they are unlocked.
   </description>

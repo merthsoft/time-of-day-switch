@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClipBoard.cs" />
     <Compile Include="TimeOfDaySwitch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimersTab.cs" />
