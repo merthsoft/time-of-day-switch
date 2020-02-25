@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace TimerSwitches {
         public static Texture2D OffColor => TimeAssignmentDefOf.Anything.ColorTexture;
         public static Texture2D OnColor => TimeAssignmentDefOf.Sleep.ColorTexture;
 
-        protected List<bool> states = Enumerable.Repeat(true, GenDate.HoursPerDay).ToList();
+        protected bool[] states = Enumerable.Repeat(true, GenDate.HoursPerDay).ToArray();
         protected bool isTurnedOn = true;
         protected bool previousState = false;
 
@@ -63,7 +62,6 @@ namespace TimerSwitches {
 
         private void updatePower() {
             if (previousState != TransmitsPowerNow) {
-                Log.Message("Updating power state changed.", true);
                 Map.powerNetManager.Notfiy_TransmitterTransmitsPowerNowChanged(PowerComp);
                 previousState = TransmitsPowerNow;
             }
@@ -71,8 +69,10 @@ namespace TimerSwitches {
 
         public override void ExposeData() {
             base.ExposeData();
-            Log.Message("Expose data.");
-            Scribe_Collections.Look<bool>(ref states, "timeOfDaySwitch");
+
+            var stateList = states.ToList();
+            Scribe_Collections.Look<bool>(ref stateList, "timeOfDaySwitch");
+            states = stateList.ToArray();
             Scribe_Values.Look<bool>(ref isTurnedOn, "isTurnedOn");
 
             Log.Message(string.Join(",", states.Select(b => b.ToString()).ToArray()));
@@ -95,6 +95,6 @@ namespace TimerSwitches {
             => ClipBoard.Copy(states);
 
         public void Paste()
-            => states = ClipBoard.CanPaste ? ClipBoard.Paste().ToList() : states;
+            => ClipBoard.Paste(states);
     }
 }
