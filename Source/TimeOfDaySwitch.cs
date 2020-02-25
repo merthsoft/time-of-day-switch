@@ -90,5 +90,11 @@ namespace TimerSwitches {
                     break;
             }
         }
+
+        public void Copy()
+            => ClipBoard.Copy(states);
+
+        public void Paste()
+            => states = ClipBoard.CanPaste ? ClipBoard.Paste().ToList() : states;
     }
 }
