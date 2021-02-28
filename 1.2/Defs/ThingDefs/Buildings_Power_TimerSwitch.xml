@@ -16,11 +16,14 @@
       </damageData>
     </graphicData>
     <building>
+      <isEdifice>false</isEdifice>
       <ai_chillDestination>false</ai_chillDestination>
       <allowWireConnection>false</allowWireConnection>
     </building>
+    <clearBuildingArea>false</clearBuildingArea>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
+    <fillPercent>0.1</fillPercent>
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>

@@ -1,13 +1,15 @@
-﻿using RimWorld;
-using System;
+﻿using System;
 using System.Linq;
+using RimWorld;
 
-namespace TimerSwitches {
-    static class ClipBoard
+namespace TimerSwitches
+{
+    internal static class ClipBoard
     {
-        static bool[] states;
+        private static bool[] states;
 
         public static bool CanPaste => states != null;
+
         public static bool[] States => states ??= Enumerable.Repeat(true, GenDate.HoursPerDay).ToArray();
 
         public static void Copy(bool[] states)
