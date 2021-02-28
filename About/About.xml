@@ -8,6 +8,7 @@
     <li>1.1</li>
     <li>1.2</li>
   </supportedVersions>
+  <packageId>Merthsoft.TimeOfDaySwitch</packageId>
   <description>
     Adds power switches that can be activated or deactivated according to the current in-game time.\n\n*Power switches must be researched before they are unlocked.
   </description>
