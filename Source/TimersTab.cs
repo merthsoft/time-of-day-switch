@@ -19,8 +19,6 @@ namespace TimerSwitches
 
         public override void DoWindowContents(Rect fillRect)
         {
-            base.DoWindowContents(fillRect);
-
             GUI.BeginGroup(fillRect);
 
             var position = new Rect(0f, 0f, fillRect.width, 65f);
