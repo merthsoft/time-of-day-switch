@@ -90,7 +90,7 @@ namespace TimerSwitches
                 Text.Font = GameFont.Small;
                 Text.Anchor = TextAnchor.MiddleCenter;
                 GUI.color = Color.white;
-                Widgets.Label(rect, state ? "On" : "Off");
+                Widgets.Label(rect, state ? "On".Translate() : "Off".Translate());
                 Text.Anchor = TextAnchor.UpperLeft;
 
                 if (currentState == state)

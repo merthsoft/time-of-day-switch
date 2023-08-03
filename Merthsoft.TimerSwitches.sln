@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31423.177
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerSwitches", "Source\TimerSwitches.csproj", "{0117DFDB-C708-4DFE-A614-17A13A44A926}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merthsoft.TimerSwitches", "Source\Merthsoft.TimerSwitches.csproj", "{0117DFDB-C708-4DFE-A614-17A13A44A926}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

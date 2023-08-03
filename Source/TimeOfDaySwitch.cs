@@ -35,8 +35,8 @@ namespace TimerSwitches
                 yield return baseGizmos[i];
 
             yield return new Command_Action {
-                defaultLabel = "Set Times",
-                defaultDesc = "Set the times that this switch is on or off.",
+                defaultLabel = "Merthsoft_TimeOfDaySwitches_SetTimes".Translate(),
+                defaultDesc = "Merthsoft_TimeOfDaySwitches_SetTimes_Description".Translate(),
                 hotKey = KeyBindingDefOf.Misc2,
                 activateSound = SoundDef.Named("Click"),
                 action = designateTimes,
