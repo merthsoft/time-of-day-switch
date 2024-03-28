@@ -4,7 +4,7 @@
     <defName>Timers</defName>
     <label>timers</label>
     <description>Configure timer switches.</description>
-    <tabWindowClass>TimerSwitches.TimersTab</tabWindowClass>
+    <tabWindowClass>Merthsoft.TimerSwitches.TimersTab</tabWindowClass>
     <buttonVisible>false</buttonVisible>
   </MainButtonDef>
 </Defs>

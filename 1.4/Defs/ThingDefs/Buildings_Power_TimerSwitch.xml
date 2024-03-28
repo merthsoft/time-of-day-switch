@@ -4,7 +4,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>TimerSwitch</defName>
     <label>time of day switch</label>
-    <thingClass>TimerSwitches.TimeOfDaySwitch</thingClass>
+    <thingClass>Merthsoft.TimerSwitches.TimeOfDaySwitch</thingClass>
     <category>Building</category>
     <description>Switches power on/off based on the time of day.</description>
     <graphicData>
@@ -46,7 +46,7 @@
     <rotatable>false</rotatable>
     <selectable>true</selectable>
     <neverMultiSelect>true</neverMultiSelect>
-    <tickerType>Normal</tickerType>
+    <tickerType>Rare</tickerType>
     <designationCategory>Power</designationCategory>
     <constructEffect>ConstructMetal</constructEffect>
     <designationHotKey>Misc2</designationHotKey>
