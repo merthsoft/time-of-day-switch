@@ -61,9 +61,6 @@ public class TimeOfDaySwitch : Building_PowerSwitch
     public override void TickRare()
     {
         base.TickRare();
-
-        Log.Message($"H: {GenLocalDate.HourOfDay(this)} S: {GetState(GenLocalDate.HourOfDay(this))} T: {TransmitsPowerNow} P: {previousState}");
-
         if (previousState != TransmitsPowerNow)
         {
             Map.powerNetManager.Notfiy_TransmitterTransmitsPowerNowChanged(PowerComp);
