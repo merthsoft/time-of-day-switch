@@ -58,14 +58,25 @@ public class TimeOfDaySwitch : Building_PowerSwitch
 
     public bool GetState(int hour) => states[hour];
 
-    public override void TickRare()
+    private void InternalTick()
     {
-        base.TickRare();
         if (previousState != TransmitsPowerNow)
         {
             Map.powerNetManager.Notfiy_TransmitterTransmitsPowerNowChanged(PowerComp);
             previousState = TransmitsPowerNow;
         }
+    }
+
+    public override void TickRare()
+    {
+        base.TickRare();
+        InternalTick();
+    }
+
+    protected override void Tick()
+    {
+        base.Tick();
+        InternalTick();
     }
 
     public override void ExposeData()
