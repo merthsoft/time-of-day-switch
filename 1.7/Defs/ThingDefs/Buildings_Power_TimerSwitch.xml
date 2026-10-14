@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
   <ThingDef ParentName="BuildingBase">
@@ -8,7 +8,7 @@
     <category>Building</category>
     <description>Switches power on/off based on the time of day.</description>
     <graphicData>
-      <texPath>Things/Building/Power/PowerSwitch</texPath>
+      <texPath>Things/Building/Power/TimeOfDaySwitch</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shaderType>Transparent</shaderType>
       <damageData>
@@ -22,6 +22,7 @@
     <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
       <WorkToMake>210</WorkToMake>
