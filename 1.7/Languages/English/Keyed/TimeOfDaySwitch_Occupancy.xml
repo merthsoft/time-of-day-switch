@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <Merthsoft_TimeOfDaySwitches_RequireOccupancy>Occupied room only</Merthsoft_TimeOfDaySwitches_RequireOccupancy>
-  <Merthsoft_TimeOfDaySwitches_RequireOccupancy_Description>Require an awake pawn in an enclosed room as well as the enabled schedule and manual switch. Animals and pawns of any faction count; sleeping pawns do not. Wall placement must border exactly one enclosed room. No valid room or multiple rooms keeps power off. Checks occur about every four seconds. Copy/paste copies the schedule only.</Merthsoft_TimeOfDaySwitches_RequireOccupancy_Description>
+  <Merthsoft_TimeOfDaySwitches_RequireOccupancy_Description>Require a living pawn in an enclosed room as well as the enabled schedule and manual switch. Sleeping pawns, animals, and pawns of any faction count. Wall placement must border exactly one enclosed room. No valid room or multiple rooms keeps power off. Checks occur about every four seconds. Copy/paste copies the schedule only.</Merthsoft_TimeOfDaySwitches_RequireOccupancy_Description>
   <Merthsoft_TimeOfDaySwitches_OccupancyStatus>Occupancy: {0}</Merthsoft_TimeOfDaySwitches_OccupancyStatus>
   <Merthsoft_TimeOfDaySwitches_NoRoom>no enclosed room; power restricted</Merthsoft_TimeOfDaySwitches_NoRoom>
   <Merthsoft_TimeOfDaySwitches_AmbiguousRoom>multiple enclosed rooms; power restricted</Merthsoft_TimeOfDaySwitches_AmbiguousRoom>
-  <Merthsoft_TimeOfDaySwitches_OccupiedRoom>awake pawn present</Merthsoft_TimeOfDaySwitches_OccupiedRoom>
-  <Merthsoft_TimeOfDaySwitches_EmptyRoom>no awake pawn present</Merthsoft_TimeOfDaySwitches_EmptyRoom>
+  <Merthsoft_TimeOfDaySwitches_OccupiedRoom>living pawn present</Merthsoft_TimeOfDaySwitches_OccupiedRoom>
+  <Merthsoft_TimeOfDaySwitches_EmptyRoom>no living pawn present</Merthsoft_TimeOfDaySwitches_EmptyRoom>
 </LanguageData>

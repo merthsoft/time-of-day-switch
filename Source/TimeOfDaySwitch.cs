@@ -127,10 +127,10 @@ public class TimeOfDaySwitch : Building_PowerSwitch
         var room = FindOccupancyRoom(out var ambiguous);
         occupancyStatusKey = ambiguous ? "Merthsoft_TimeOfDaySwitches_AmbiguousRoom" : "Merthsoft_TimeOfDaySwitches_NoRoom";
         if (room == null) return;
-        // Match Auto Light's default: awake pawns of any faction, including animals.
+        // Unlike a lamp, arbitrary circuits must stay enabled for sleeping occupants.
         foreach (var thing in room.ContainedAndAdjacentThings)
         {
-            if (thing is Pawn pawn && pawn.Spawned && !pawn.Dead && pawn.GetRoom() == room && pawn.Awake())
+            if (thing is Pawn pawn && pawn.Spawned && !pawn.Dead && pawn.GetRoom() == room)
             {
                 roomOccupied = true;
                 break;
