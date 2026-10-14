@@ -11,6 +11,12 @@ public class TimeOfDaySwitch : Building_PowerSwitch
 {
     private static Texture2D icon;
     private Graphic offGraphic;
+    private bool requireOccupancy;
+    private bool roomOccupied;
+    private int ticksUntilOccupancyCheck;
+    private string occupancyStatusKey = "Merthsoft_TimeOfDaySwitches_NoRoom";
+
+    public bool RequireOccupancy => requireOccupancy;
 
     public static Texture2D OffColor => TimeAssignmentDefOf.Anything.ColorTexture;
 
@@ -20,7 +26,7 @@ public class TimeOfDaySwitch : Building_PowerSwitch
     protected bool isTurnedOn = true;
     protected bool? previousState;
 
-    public override bool TransmitsPowerNow => Spawned && isTurnedOn && GetState(GenLocalDate.HourOfDay(this));
+    public override bool TransmitsPowerNow => Spawned && isTurnedOn && GetState(GenLocalDate.HourOfDay(this)) && (!requireOccupancy || roomOccupied);
 
     public override Graphic Graphic => TransmitsPowerNow ? DefaultGraphic : offGraphic ??=
         GraphicDatabase.Get(def.graphicData.graphicClass, def.graphicData.texPath + "_Off",
@@ -29,6 +35,7 @@ public class TimeOfDaySwitch : Building_PowerSwitch
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
         base.SpawnSetup(map, respawningAfterLoad);
+        RefreshOccupancy();
         previousState = TransmitsPowerNow;
         DirtyGraphic();
 
@@ -51,6 +58,14 @@ public class TimeOfDaySwitch : Building_PowerSwitch
             icon = icon,
         };
 
+        yield return new Command_Toggle {
+            defaultLabel = "Merthsoft_TimeOfDaySwitches_RequireOccupancy".Translate(),
+            defaultDesc = "Merthsoft_TimeOfDaySwitches_RequireOccupancy_Description".Translate(),
+            icon = icon,
+            isActive = () => requireOccupancy,
+            toggleAction = () => SetRequireOccupancy(!requireOccupancy),
+        };
+
         void designateTimes()
         {
             var allTabs = DefDatabase<MainButtonDef>.AllDefs;
@@ -59,6 +74,69 @@ public class TimeOfDaySwitch : Building_PowerSwitch
             (timersTab.TabWindow as TimersTab).CurrentTimer = this;
             Find.MainTabsRoot.SetCurrentTab(timersTab);
         }
+    }
+
+    public void SetRequireOccupancy(bool enabled)
+    {
+        requireOccupancy = enabled;
+        RefreshOccupancy();
+        InternalTick();
+    }
+
+    public override string GetInspectString()
+    {
+        var text = base.GetInspectString();
+        if (requireOccupancy)
+            text += "\n" + "Merthsoft_TimeOfDaySwitches_OccupancyStatus".Translate(occupancyStatusKey.Translate());
+        return text;
+    }
+
+    private Room FindOccupancyRoom(out bool ambiguous)
+    {
+        ambiguous = false;
+        if (!Spawned) return null;
+        var direct = RegionAndRoomQuery.RoomAt(Position, Map, RegionType.Set_Passable);
+        if (direct != null)
+            return IsEnclosedRoom(direct) ? direct : null;
+
+        // Wall cells have no room. Never choose the first of multiple adjacent rooms.
+        Room result = null;
+        foreach (var cell in GenAdj.CellsAdjacentCardinal(this))
+        {
+            if (!cell.InBounds(Map)) continue;
+            var adjacent = RegionAndRoomQuery.RoomAt(cell, Map, RegionType.Set_Passable);
+            if (!IsEnclosedRoom(adjacent)) continue;
+            if (result != null && result != adjacent)
+            {
+                ambiguous = true;
+                return null;
+            }
+            result = adjacent;
+        }
+        return result;
+    }
+
+    private static bool IsEnclosedRoom(Room room)
+        => room != null && room.ProperRoom && !room.UsesOutdoorTemperature && !room.PsychologicallyOutdoors;
+
+    private void RefreshOccupancy()
+    {
+        ticksUntilOccupancyCheck = GenTicks.TickRareInterval;
+        roomOccupied = false;
+        if (!requireOccupancy || !Spawned) return;
+        var room = FindOccupancyRoom(out var ambiguous);
+        occupancyStatusKey = ambiguous ? "Merthsoft_TimeOfDaySwitches_AmbiguousRoom" : "Merthsoft_TimeOfDaySwitches_NoRoom";
+        if (room == null) return;
+        // Match Auto Light's default: awake pawns of any faction, including animals.
+        foreach (var thing in room.ContainedAndAdjacentThings)
+        {
+            if (thing is Pawn pawn && pawn.Spawned && !pawn.Dead && pawn.GetRoom() == room && pawn.Awake())
+            {
+                roomOccupied = true;
+                break;
+            }
+        }
+        occupancyStatusKey = roomOccupied ? "Merthsoft_TimeOfDaySwitches_OccupiedRoom" : "Merthsoft_TimeOfDaySwitches_EmptyRoom";
     }
 
     public void SetState(int hour, bool state)
@@ -90,12 +168,14 @@ public class TimeOfDaySwitch : Building_PowerSwitch
     public override void TickRare()
     {
         base.TickRare();
+        if (requireOccupancy) RefreshOccupancy();
         InternalTick();
     }
 
     protected override void Tick()
     {
         base.Tick();
+        if (requireOccupancy && --ticksUntilOccupancyCheck <= 0) RefreshOccupancy();
         InternalTick();
     }
 
@@ -108,6 +188,7 @@ public class TimeOfDaySwitch : Building_PowerSwitch
         if (stateList != null && stateList.Count == GenDate.HoursPerDay)
             states = stateList.ToArray();
         Scribe_Values.Look(ref isTurnedOn, nameof(isTurnedOn));
+        Scribe_Values.Look(ref requireOccupancy, nameof(requireOccupancy));
 
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
             previousState = null;
