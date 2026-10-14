@@ -23,8 +23,12 @@
     <passability>Standable</passability>
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
     <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsPower</li>
+    </thingCategories>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
+      <Mass>2</Mass>
       <WorkToMake>210</WorkToMake>
       <Flammability>0.4</Flammability>
       <Beauty>-2</Beauty>
