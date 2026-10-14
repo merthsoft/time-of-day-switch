@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+    <Merthsoft_TimeOfDaySwitches_SetTimes>время</Merthsoft_TimeOfDaySwitches_SetTimes>
+    <Merthsoft_TimeOfDaySwitches_SetTimes_Description>Установите время, в течение которого этот переключатель будет включен, а в которое выключен.</Merthsoft_TimeOfDaySwitches_SetTimes_Description>
+</LanguageData>
