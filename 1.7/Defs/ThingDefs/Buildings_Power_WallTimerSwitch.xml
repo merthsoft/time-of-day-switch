@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>WallTimerSwitch</defName>
+    <label>wall-mounted timer switch</label>
+    <thingClass>Merthsoft.TimerSwitches.TimeOfDaySwitch</thingClass>
+    <category>Building</category>
+    <description>A thermostat-style wall-mounted power switch controlled by a daily schedule. It attaches to a wall without replacing it. Occupancy control uses the room on the mounted side. It does not control temperature.</description>
+    <graphicData>
+      <texPath>Things/Building/Power/WallTimerSwitch</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <drawOffsetNorth>(0,0,0.9)</drawOffsetNorth>
+      <drawOffsetSouth>(0,0,-0.9)</drawOffsetSouth>
+      <drawOffsetWest>(-0.9,0,0)</drawOffsetWest>
+      <drawOffsetEast>(0.9,0,0)</drawOffsetEast>
+      <damageData>
+        <enabled>false</enabled>
+      </damageData>
+    </graphicData>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isEdifice>false</isEdifice>
+      <isAttachment>true</isAttachment>
+      <allowWireConnection>false</allowWireConnection>
+    </building>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <terrainAffordanceNeeded IsNull="True" />
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsPower</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>2</Mass>
+      <WorkToMake>210</WorkToMake>
+      <Flammability>0.4</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTransmitter</compClass>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+    </comps>
+    <rotatable>true</rotatable>
+    <overrideMinifiedRot>North</overrideMinifiedRot>
+    <minifiedDrawOffset>(0,0,0.2)</minifiedDrawOffset>
+    <placeWorkers>
+      <li>Placeworker_AttachedToWall</li>
+    </placeWorkers>
+    <selectable>true</selectable>
+    <neverMultiSelect>false</neverMultiSelect>
+    <tickerType>Normal</tickerType>
+    <designationCategory>Power</designationCategory>
+    <uiOrder>2012</uiOrder>
+    <constructEffect>ConstructMetal</constructEffect>
+    <uiIconPath>Things/Building/Power/WallTimerSwitch</uiIconPath>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+</Defs>

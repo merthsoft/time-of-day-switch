@@ -28,9 +28,21 @@ public class TimeOfDaySwitch : Building_PowerSwitch
 
     public override bool TransmitsPowerNow => Spawned && isTurnedOn && GetState(GenLocalDate.HourOfDay(this)) && (!requireOccupancy || roomOccupied);
 
-    public override Graphic Graphic => TransmitsPowerNow ? DefaultGraphic : offGraphic ??=
-        GraphicDatabase.Get(def.graphicData.graphicClass, def.graphicData.texPath + "_Off",
-            def.graphicData.shaderType.Shader, def.graphicData.drawSize, DrawColor, DrawColorTwo);
+    public override Graphic Graphic
+    {
+        get
+        {
+            if (TransmitsPowerNow) return DefaultGraphic;
+            if (offGraphic == null)
+            {
+                offGraphic = GraphicDatabase.Get(def.graphicData.graphicClass, def.graphicData.texPath + "_Off",
+                    def.graphicData.shaderType.Shader, def.graphicData.drawSize, DrawColor, DrawColorTwo);
+                // Retain directional offsets for wall-mounted variants in both states.
+                offGraphic.data = def.graphicData;
+            }
+            return offGraphic;
+        }
+    }
 
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
